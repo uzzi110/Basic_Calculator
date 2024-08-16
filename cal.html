@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Page Title</title>
+    <style>
+      button {
+        border:0.5px solid;
+        color: black;
+        height: 70px;
+        font-size: 20px;
+      }
+      .container {
+        display: grid;
+        grid-template-columns: repeat(4, 70px);
+        color: black;
+        border: 1px solid white;
+      }
+
+      input[type="text"] {
+            width: 100%;
+            font-size: 30px;
+            height:70px;
+            box-sizing: border-box;
+            background-color: black;
+            color: white;
+            border: 1px solid black;
+            border-radius: 10px 10px 0px 0px;
+            
+        }
+
+      .calbody{
+        width: 280px;
+        margin: auto;
+        background-color: black;
+        border-radius: 10px;;
+      }
+
+      #zero{
+        grid-column: 1 / span 2;
+      }
+
+      #orange{
+        background-color: orange;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="calbody">
+      <input type="text" id="display" readonly />
+      <div class="container">
+        <button onclick="clearDisplay()">C</button>
+        <button onclick="appendToDisplay('%')">%</button>
+        <button onclick="appendToDisplay('-')">-</button>
+        <button onclick="appendToDisplay('/')" id="orange">/</button>
+
+        <button onclick="appendToDisplay('7')">7</button>
+        <button onclick="appendToDisplay('8')">8</button>
+        <button onclick="appendToDisplay('9')">9</button>
+        <button onclick="appendToDisplay('*')" id="orange">x</button>
+
+        <button onclick="appendToDisplay('4')">4</button>
+        <button onclick="appendToDisplay('5')">5</button>
+        <button onclick="appendToDisplay('6')">6</button>
+        <button onclick="appendToDisplay('-')" id="orange">-</button>
+
+        <button onclick="appendToDisplay('1')">1</button>
+        <button onclick="appendToDisplay('2')">2</button>
+        <button onclick="appendToDisplay('3')">3</button>
+        <button onclick="appendToDisplay('+')" id="orange">+</button>
+
+        <button onclick="appendToDisplay('0')" id="zero" style="border-bottom-left-radius: 10px; ">0</button>
+        <button onclick="appendToDisplay('.')">.</button>
+        <button onclick="calculateResult()" id="orange" style="border-bottom-right-radius: 10px;">=</button>
+      </div>
+    </div>
+
+    <script>
+      let resultShown = false;
+
+        function appendToDisplay(value) {
+            const display = document.getElementById("display");
+
+            if (resultShown) {
+                display.value = "";
+                resultShown = false;
+            }
+
+            display.value += value;
+        }
+
+        function calculateResult() {
+            const display = document.getElementById("display");
+            let expression = display.value;
+
+            try {
+                display.value = eval(expression);
+                resultShown = true; 
+            } catch (e) {
+                display.value = 'undefined';
+                resultShown = true;
+            }
+        }
+
+        function clearDisplay() {
+            const display = document.getElementById("display");
+            display.value = "";
+            resultShown = false;
+        }
+    </script>
+  </body>
+</html>
